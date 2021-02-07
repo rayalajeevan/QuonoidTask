@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
+    <title>Bored API</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Oxygen', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .navbar {
+            background-color: #6ba3ff;
+        }
+
+        .pageTitle {
+            background-color: #4a4e56;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- As a heading -->
+    <nav class="navbar text-white py-3">
+        <span class="navbar-brand mb-0 h1 font-weight-normal">Bored API</span>
+        <span class="navbar-brand mb-0 h1 font-weight-normal"><a href="/home">Home</a></span>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 pageTitle">
+                <h3 class="font-weight-normal py-2 text-center">Welcome {{username}}</h3>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">activity</th>
+            <th scope="col">type_of_activity</th>
+            <th scope="col">price</th>
+            <th scope="col">link</th>
+            <th scope="col">key</th>
+            <th scope="col">accessibility</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for obj in activities %}
+          <tr>
+            <td>{{obj.activity}}</td>
+            <td>{{obj.type_of_activity}}</td>
+            <td>{{obj.price}}</td>
+            <td>{{obj.link}}</td>
+            <td>{{obj.key}}</td>
+            <td>{{obj.accessibility}}</td>
+            <td><a href="/update?id={{ obj.activitie_id}}"><button class="btn btn-info btn-sm rounded-circle"><i class="fa fa-pencil" aria-hidden="true"></i></button></a></td>
+            <td><a href="/delete?id={{ obj.activitie_id}}"><button class="btn btn-danger btn-sm rounded-circle"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <small class="text-danger text-center">{{validation}}</small>
+
+      {% if is_paginated %}
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+            
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><a class="page-link" >{{ data.next_page_number}}</a></li>
+                    {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        <script>
+            var correctCaptcha = function(response) {
+        alert(response);
+    };
+        </script>
+</body>
+
+</html>

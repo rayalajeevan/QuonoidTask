@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <title>Bored API</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Oxygen', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .navbar {
+            background-color: #6ba3ff;
+        }
+
+        .pageTitle {
+            background-color: #4a4e56;
+            color: #fff;
+        }
+        #g-recaptcha-response {
+    display: block !important;
+    position: absolute;
+    margin: -78px 0 0 0 !important;
+    width: 302px !important;
+    height: 76px !important;
+    z-index: -999999;
+    opacity: 0;
+}
+    </style>
+</head>
+
+<body>
+    <!-- As a heading -->
+    <nav class="navbar text-white py-3">
+        <span class="navbar-brand mb-0 h1 font-weight-normal">Bored API</span>
+        <span class="navbar-brand mb-0 h1 font-weight-normal"><a href="/login">Login</a></span>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 pageTitle">
+                <h3 class="font-weight-normal py-2 text-center">Register</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <form class="bg-light border my-4 p-4" method="POST" action="/register">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstName">First Name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="First Name" required="required" minlength="3" name="first_name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Last Name" required="required" minlength="3" name="last_name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Username">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Username" required="required" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailAddress">Email</label>
+                        <input type="email" class="form-control" id="emailAddress" placeholder="Email" required="required" name="email">
+                        <small class="text-danger">{{error}}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="seletType">Type</label>
+                        <select id="seletType" class="form-control" required="required" name="type_of_user">
+                            <option value="" selected disabled>Select Type...</option>
+                            <option value="education">Education</option>
+                            <option value="recreational">Recreational</option>
+                            <option value="social">Social</option>
+                            <option value="diy">Diy</option>
+                            <option value="charity">Charity</option>
+                            <option value="cooking">Cooking</option>
+                            <option value="relaxation">Relaxation</option>
+                            <option value="music">Music</option>
+                            <option value="busywork">Busy work</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password" required="required" minlength="6" maxlength="16" name="password">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="6LeK3E0aAAAAAKeD8-giowIGJMmuEJpONnmit0MS" data-callback="correctCaptcha"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        <script>
+            var token=""
+            var correctCaptcha = function(response) {
+                token=response
+        
+    };
+    function validate(){
+        if (token==""){
+            return False
+        }
+        else{
+            return True
+        }
+    }
+    window.onload = function() {
+    var $recaptcha = document.querySelector('#g-recaptcha-response');
+
+    if($recaptcha) {
+        $recaptcha.setAttribute("required", "required");
+    }
+};
+        </script>
+</body>
+
+</html>
